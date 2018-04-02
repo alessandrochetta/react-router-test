@@ -22,20 +22,27 @@ export default React.createClass({
       "https://thumb9.shutterstock.com/display_pic_with_logo/436114/274833056/stock-vector-sample-grunge-retro-red-isolated-ribbon-stamp-sample-stamp-sample-sample-sign-274833056.jpg",
       "http://www.alittlethingcalledlove.co.uk/wp-content/uploads/2015/01/Sample-image.jpg",
       "http://orperry.com/sample/wp-content/uploads/2015/12/sample-logo.png"
-    ]
+    ],
+    linksUploaded: []
   };
 },
 
   componentDidMount()
   {
+    setTimeout(function(){
+      var newLinks = JSON.parse(JSON.stringify(this.state.links))
+      this.setState({
+        linksUploaded: newLinks
+      })
+    }.bind(this), 1000)
 
   },
 
   addImage(){
-    var newLinks = JSON.parse(JSON.stringify(this.state.links))
-    newLinks.unshift("https://res.cloudinary.com/demo-robert/image/upload/l_text:arial_30_bold_stroke:David%20Walsh%20Blog,bo_15px_solid_rgb:000000,a_45,e_screen,o_7,co_rgb:0000FF,fl_tiled/q_90/234_72_z_qpwsct.jpg")
+    var linksUploaded = JSON.parse(JSON.stringify(this.state.linksUploaded))
+    linksUploaded.unshift("https://res.cloudinary.com/demo-robert/image/upload/l_text:arial_30_bold_stroke:David%20Walsh%20Blog,bo_15px_solid_rgb:000000,a_45,e_screen,o_7,co_rgb:0000FF,fl_tiled/q_90/234_72_z_qpwsct.jpg")
     this.setState({
-      links: newLinks
+      linksUploaded: linksUploaded
     })
   },
 
@@ -44,7 +51,7 @@ export default React.createClass({
     return <div>
     <input type="button" onClick={this.addImage}/>
     <App/>
-    {this.state.links.map((l, i) => <img src={l} height="300px" width="300px" key={i}/>)}
+    {this.state.linksUploaded.map((l, i) => <img src={l} height="300px" width="300px" key={i}/>)}
       </div>
   }
 })
